@@ -2,8 +2,8 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../db');
 
-class Comprovantes extends Model {}
-Comprovantes.init({
+class Comprobantes extends Model {}
+Comprobantes.init({
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -17,7 +17,7 @@ Comprovantes.init({
 
 }, {
     sequelize,
-    modelName: "comprovantes"
+    modelName: "comprobantes"
 });
 
-module.exports = Comprovantes;
+module.exports = Comprobantes;
