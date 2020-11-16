@@ -1,26 +1,42 @@
 const express = require('express');
+const morgan = require('morgan');
+const hbs = require('express-handlebars');
+const path = require('path');
+
+//Inicializacion
 const app = express();
-const sequelize = require('./modelo/db');
-require('./modelo/asociacion');
 
-// Setting
-const PORT = process.env.PORT || 3000;
+//set 
+app.set('port', process.env.PORT || 4000);
+app.set('vista', path.join('./vista'));
+app.engine('.hbs', hbs({
+    defaultLayout: 'index',
+    layoutsDir: path.join(app.get('vista'), 'layouts'),
+    partialsDir: path.join(app.get('vista'), 'partials'),
+    extname: '.hbs',
+    helpers: require('./controlador/handlebars.js')
+}));
+app.set('view engine', '.hbs');
 
-// Middleware
+//middlewares
+app.use(morgan('dev'));
+app.use(express.urlencoded({extends: false}));
+app.use(express.json());
 
-// Rutas
-//app.use('/api/posts', require('controlador/rutas/usuario'));
-//app.use('/api/users', require('controlador/rutas/comprovantes'));
+//Variables Glovales
+app.use((req, res, next) => {
+    next();
+});
 
-// Arrancamos el servidor
-app.listen(PORT, function () {
-    console.log(`La app ha arrancado en http://localhost:${PORT}`);
+//Rutas
+app.use(require('./controlador/index.js'));
+app.use(require('./controlador/autenticar.js'));
+app.use('/comprobantes.js',require('./controlador/comprobantes.js'));
 
-    // Conectase a la base de datos
-    sequelize.sync({ force: false }).then(() => {
-        console.log("Nos hemos conectado a la base de datos");
-    }).catch(error => {
-        console.log('Se ha producido un error', error);
-    })
+//Publico
+//app.use(express.static(path.join(__dirname, 'publico')));
 
+//Inicio de servidor
+app.listen(app.get('port'), () => {
+ console.log('servidor en el puerto', app.get('port'));   
 });
