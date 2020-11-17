@@ -1,8 +1,6 @@
 const express = require('express');
 const rutas = express.Router();
 
-rutas.get('/', (req, res) => {
-    res.send('hola mundo');
-});
+const pool = require('../db.js');
 
 module.exports = rutas;
