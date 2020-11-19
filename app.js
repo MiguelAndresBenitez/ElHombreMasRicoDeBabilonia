@@ -8,7 +8,7 @@ const app = express();
 
 //set 
 app.set('port', process.env.PORT || 4000);
-app.set('vista', path.join('./vista'));
+app.set('vista', path.join(__dirname, 'vista'));
 app.engine('.hbs', hbs({
     defaultLayout: 'index',
     layoutsDir: path.join(app.get('vista'), 'layouts'),
@@ -31,7 +31,7 @@ app.use((req, res, next) => {
 //Rutas
 app.use(require('./controlador/index.js'));
 app.use(require('./controlador/autenticar.js'));
-app.use('/comprobantes.js',require('./controlador/comprobantes.js'));
+app.use('/comprobantes',require('./controlador/comprobantes.js'));
 
 //Publico
 //app.use(express.static(path.join(__dirname, 'publico')));

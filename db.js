@@ -1,8 +1,9 @@
 const mysql = require('mysql');
-const { connect } = require('./controlador/index.js');
-const { database } = require('./keys.js');
-const pool = mysql.createPool(database);
 const { promisify } = require('util');
+
+const { database } = require('./keys.js');
+
+const pool = mysql.createPool(database);
 
 pool.getConnection((err, connection) => {
     if  ( err )  { 

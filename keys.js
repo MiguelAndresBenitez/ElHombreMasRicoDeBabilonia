@@ -3,6 +3,7 @@ module.exports = {
         host: 'localhost',
         user: 'root',
         password: 'alumno',
-        database: 'elhombremasricodebabilonia'
+        database: 'elhombremasricodebabilonia',
+        insecureAuth : true
     }
 };
