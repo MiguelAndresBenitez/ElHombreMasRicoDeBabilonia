@@ -1,8 +1,9 @@
 const express = require('express');
 const rutas = express.Router();
 
+//Ruta inicial
 rutas.get('/', (req, res) => {
-    res.send('hola mundo');
+    res.render('../vista/index/index.hbs');
 });
 
 module.exports = rutas;

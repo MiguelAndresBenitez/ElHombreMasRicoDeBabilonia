@@ -1,8 +1,30 @@
-<div class="container p-4">
+<div class="container">
     <div class="row">
-
         {{#each comprobantes}}
-            {{this}}
+            <div class="col-md-3 p-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title d-flex justify-content-between align-items-center">
+                        {{ titulo }} <a href="http://localhost:44000/comprobantes/editar/{{_id}}"><i class="fas fa-edit"></i></a>
+                        </h4>
+                        <p class="m-2">Monto: ${{monto}}</p>
+                         <p class="text-muted">descripcion:<br>
+                          {{descripcion}}</p>
+                        <form action="http://localhost:44000/comprobantes/eliminar/{{_id}}" method="POST">
+                             <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="btn btn-danger btn-block btn-sm">eliminar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {{else}}
+            <div class="card mx-auto">
+                <div class="card-body">
+                    <h1> Hola </h1>
+                    <p clsss="lead">No hay comprobantes</p>
+                    <a href="/comprobantes/add" class="btn btn-success btn-block">Crea uno!</a>   
+                </div>
+            </div>
         {{/each}}
     </div>
 </div>
