@@ -10,7 +10,7 @@ rutas.get('/add', (req, res) => {
 rutas.post('/add', async(req, res) => {
     const { titulo, monto, descripcion} = req.body;
     const errors = [];
-   
+     
     if(!titulo) {
         errors.push({text: 'por favor ingrese un titulo'});
     }
@@ -59,16 +59,14 @@ rutas.get("/editar/:id",async (req, res) => {
 
 rutas.post("/actualizar/",async (req, res) => {
         const {id,titulo, monto, descripcion} = req.body;
-
         let newData = {
             "titulo":titulo,
             "monto":monto,
             "descripcion":descripcion
         };
-
         await Comprobantes.findByIdAndUpdate(id,newData)
             .then(()=>{
-                return res.send("comprobante actualizado");
+                return res.redirect("/comprobantes/");
             })
             .catch((err)=>{
                 return res.send(err);
@@ -77,7 +75,7 @@ rutas.post("/actualizar/",async (req, res) => {
 
 //Eliminar
 rutas.post('/eliminar/:id', async (req, res) => {
-    const {id} = req.body;
+    const {id} = req.params;
     console.log(id)
     await Comprobantes.findByIdAndDelete(id)
         .then(()=>{
@@ -86,7 +84,6 @@ rutas.post('/eliminar/:id', async (req, res) => {
         .catch((err)=>{
             return res.send(`error ${err}`)
         })
-    res.redirect("/");
   });
 
 module.exports = rutas;
